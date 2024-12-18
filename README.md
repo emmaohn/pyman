@@ -1,3 +1,3 @@
-##Pyman! By Jojo Johnson
+#Pyman! By Jojo Johnson
 
 Complete with animations!
