@@ -1,5 +1,6 @@
 import os
 import time
+import re
 clear = lambda: os.system('clear')
 
 def noneWrong():
@@ -133,33 +134,38 @@ time.sleep(1)
 print("Player 1, choose your word")
 magicWord = input().lower()
 clear()
+x = re.search("^[a-zA-Z\s]+$", magicWord)
+if x:
+  # is player 2 ready or not?
+  while userInput1 != 'y':
+    userInput1 = input("player 2, are you ready? (y / n) ")
+
+    if userInput1.lower() == 'y':
+      print("Great! Let's continue.")
+      time.sleep(2)
+    elif userInput1.lower() == 'n':
+      print("* cough *")
+      time.sleep(.3)
+      clear()
+      time.sleep(.6)
+      print("Loser")
+      time.sleep(.6)
+      clear()
+      time.sleep(.3)
+      print("* cough *")
+      time.sleep(.3)
+      clear()
+      time.sleep(.3)
+      print("k bye")
+      quit()
+    else:
+      print("Ok, let's try that again")
+  else:
+    print("Please only use letters and spaces")
+
 #  magic key is a list of dashes the length of the word
 for i in range(len(magicWord)):
   magicKey.append('_ ')
-
-# is player 2 ready or not?
-while userInput1 != 'y':
-  userInput1 = input("player 2, are you ready? (y / n) ")
-  if userInput1.lower() == 'y':
-    print("Great! Let's continue.")
-    time.sleep(2)
-  elif userInput1.lower() == 'n':
-    print("* cough *")
-    time.sleep(.3)
-    clear()
-    time.sleep(.6)
-    print("Loser")
-    time.sleep(.6)
-    clear()
-    time.sleep(.3)
-    print("* cough *")
-    time.sleep(.3)
-    clear()
-    time.sleep(.3)
-    print("k bye")
-    quit()
-  else:
-    print("Ok, let's try that again")
 
 # player 2 is ready!
 while wrong != 6 or right != len(magicWord):
@@ -212,11 +218,12 @@ while wrong != 6 or right != len(magicWord):
       magicKey.insert(i, f'{magicWord[i]} ')
       right += 1
 
-  # add guess to guess list
-  if guess not in guesses and guess != '' and guess not in magicWord:
+  # add guess to guess list and and to wrong count
+  if guess not in guesses and guess != '':
     guesses.append(guess)
-    wrong += 1
+    if guess not in magicWord:
+      wrong += 1
 
   # print(f"wrong {wrong}")
   # print(f"right {right}")
-  # clear()
+  clear()
